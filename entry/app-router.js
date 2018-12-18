@@ -1,0 +1,64 @@
+import {
+    Route,
+    Switch,
+    Redirect
+} from "react-router-dom";
+
+import Loadable from 'react-loadable';
+
+import Index from "@/src/weixin/index/index.jsx"
+
+// const DZonline = process.env.NODE_ENV === "production";
+// if (DZonline === false) {
+//     import VConsole from 'vconsole/dist/vconsole.min.js'
+//     new VConsole();
+// }
+
+
+function Loading() {
+    return (
+        <div className="page-load">
+            <div className="icon-wrap">
+                <i className="icon__img icon__loading"></i>
+            </div>
+        </div>
+    );
+}
+const LoadComponent = (opts) => {
+    return Loadable(Object.assign({
+        loading: Loading,
+        delay: 20000,
+        timeout: 10000,
+    }, opts));
+};
+
+const Edit = LoadComponent({ loader: () => import("@/src/weixin/index/edit.jsx") });
+
+let AuthComponent = (props, Component) => {
+    // console.log(props, Component)
+    return <Component {...props} />
+}
+
+//路由
+class AppRouter extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Switch>
+                {/* <Route exact path={`/`} render={props => AuthComponent(props, Index)} /> */}
+                <Route path={`/index`} render={props => AuthComponent(props, Index)} />
+                <Route path={`/edit`} render={props => AuthComponent(props, Edit)} />
+{/*
+                <Route path={`/login/:id?`} render={props => AuthComponent(props, Login)} />
+*/}
+                <Redirect to="/404" />
+            </Switch>
+        )
+    }
+}
+
+
+export default AppRouter;

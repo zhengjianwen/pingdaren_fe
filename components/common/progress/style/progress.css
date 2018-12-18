@@ -1,0 +1,9 @@
+@charset "utf-8";
+.progress{
+	border-radius: 1.45rem;
+}
+.progress .progressChild{
+	border-radius: 1.45rem;
+	transition: all .8s ease-out;
+	height: 100%;
+}

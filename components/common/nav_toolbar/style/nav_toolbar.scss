@@ -1,0 +1,67 @@
+.nav-toolbar {
+    background: transparent;
+    line-height: 2.55rem;
+    height: 2.55rem;
+    position: relative;
+    z-index: 110;
+
+    .nav-toolbar__fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        width: 100%;
+        padding: 0 1rem;
+        background: #fff;
+        border-bottom: 1px solid #D7D7D7;
+        border-bottom: 1px solid rgba(197, 197, 197, .2);
+    }
+
+    .nav-toolbar__icon {
+        text-align: left;
+        font-size: .85rem;
+        width: 4rem;
+    }
+
+    .nav-toolbar__title {
+        text-align: center;
+        font-size: .85rem;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .nav-toolbar__explain {
+        text-align: right;
+        font-size: .75rem;
+        width: 4rem;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .nav-toolbar__back {
+        background: url(../img/arrow.png) no-repeat left center;
+        background-size: .52rem .95rem;
+        width: 1.5rem;
+        height: 2.55rem;
+    }
+
+    .nav-toolbar__close {
+        margin-left: 1rem;
+    }
+}
+
+/*.nav-toolbar--ios {
+    height: 3.05rem;
+
+    .nav-toolbar__fixed {
+        padding-top: 0.5rem;
+    }
+}*/
+
+.nav-toolbar--x {
+    height: 4.1rem;
+
+    .nav-toolbar__fixed {
+        padding-top: 1.55rem;
+    }
+}
