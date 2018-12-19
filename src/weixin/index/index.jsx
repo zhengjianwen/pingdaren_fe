@@ -176,9 +176,9 @@ class Main extends React.Component {
                                 <div className='des'>{item.des}</div>
                                 <div className='flex flex_align_items_center count'>
                                     <div className='flex flex_align_items_center'>
-                                        <Icon type="heart" theme="filled" color='#CFA972' size='md' />{item.love}</div>
+                                        <img src={require('./img/heart.png')}/> {item.love}</div>
                                     <div className='flex flex_align_items_center'>
-                                        <Icon type="message" />
+                                        <img src={require('./img/pinglun-2.png')}/>
                                         {item.talk}
                                         </div>
                                 </div>
@@ -232,6 +232,7 @@ const Style = styled.div`
       margin: 10px 0;
       padding: 0.70rem 0.50rem;
       .content-list-type{
+        border-radius:2px;
         height: 1rem;
         line-height: 1rem;
         font-weight: 400;
@@ -272,6 +273,10 @@ const Style = styled.div`
       .count{
       font-size: 0.90rem;
       color:#BFBFBF;
+      img{
+        width: 18px;
+        margin-right:0.50rem ;
+      }
         >div{
           width: 50%;
           margin-left: 1rem;

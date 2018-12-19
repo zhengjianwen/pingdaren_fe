@@ -33,6 +33,9 @@ const LoadComponent = (opts) => {
 };
 
 const Edit = LoadComponent({ loader: () => import("@/src/weixin/index/edit.jsx") });
+const Detail = LoadComponent({ loader: () => import("@/src/weixin/index/detail.jsx") });
+const User = LoadComponent({ loader: () => import("@/src/weixin/index/user.jsx") });
+const UserInfo = LoadComponent({ loader: () => import("@/src/weixin/index/userInfo.jsx") });
 
 let AuthComponent = (props, Component) => {
     // console.log(props, Component)
@@ -51,6 +54,9 @@ class AppRouter extends React.Component {
                 {/* <Route exact path={`/`} render={props => AuthComponent(props, Index)} /> */}
                 <Route path={`/index`} render={props => AuthComponent(props, Index)} />
                 <Route path={`/edit`} render={props => AuthComponent(props, Edit)} />
+                <Route path={`/detail`} render={props => AuthComponent(props, Detail)} />
+                <Route path={`/user`} render={props => AuthComponent(props, User)} />
+                <Route path={`/userinfo`} render={props => AuthComponent(props, UserInfo)} />
 {/*
                 <Route path={`/login/:id?`} render={props => AuthComponent(props, Login)} />
 */}
