@@ -8,6 +8,8 @@ import {Toast, Icon} from 'antd-mobile';
 import Invoke from "@/net/invoke.js"
 import {baseInit} from '_common/decorators/baseinit'
 import {debounce} from '@/js/utils/base'
+import {Page} from './components/page/index'
+import {TabBar} from './components/tab-bar/index'
 
 
 @baseInit({title: '首页'})
@@ -165,32 +167,13 @@ class Main extends React.Component {
                 <div className='content'>
                     {
                         this.state.data.list.map((item, index) => {
-                            return (<div className='content-list' key={index}>
-                                <div className='content-list-type'>
-                                    攻略
-                                </div>
-                                <div className={ClassNames(['banner-img__wrapper'], {hide: !item.img})}>
-                                    <img src={require('./img/demo.jpg')}/>
-                                </div>
-                                <div className='title'>{item.title}</div>
-                                <div className='des'>{item.des}</div>
-                                <div className='flex flex_align_items_center count'>
-                                    <div className='flex flex_align_items_center'>
-                                        <img src={require('./img/heart.png')}/> {item.love}</div>
-                                    <div className='flex flex_align_items_center'>
-                                        <img src={require('./img/pinglun-2.png')}/>
-                                        {item.talk}
-                                        </div>
-                                </div>
+                            return (<div key={index}>
+                                <Page data={item}/>
                             </div>)
                         })
                     }
                 </div>
-                <div className='flex flex_align_items_center flex_justify_content color-333333 tabBar'>
-                    <div>HOME</div>
-                    <Icon type="plus" color='#CFA972' size='md'/>
-                    <div>ME</div>
-                </div>
+                <TabBar/>
             </div>
 
         </Style>)
@@ -226,78 +209,6 @@ const Style = styled.div`
    }
    .content{
     padding:2.25rem 0.50rem  3.40rem;
-    .content-list{
-      background:rgba(255,255,255,1);
-      border-radius:11px;
-      margin: 10px 0;
-      padding: 0.70rem 0.50rem;
-      .content-list-type{
-        border-radius:2px;
-        height: 1rem;
-        line-height: 1rem;
-        font-weight: 400;
-        display: inline-block;
-        color:#CFA972;
-        font-size: 0.70rem;
-        padding: 0 0.25rem ;
-        border: .5px solid #CFA972;
-        margin-bottom: 0.50rem;
-      }
-      .banner-img__wrapper{
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        height: 9.00rem;
-        margin-bottom: 0.60rem;
-        img{
-          position: absolute;
-          top:50%;
-          margin-top:-50%;
-          width: 100%;
-        } 
-      }
-      .title{
-        font-size:0.90rem;
-        font-weight:500;
-        color:#333333;
-        line-height:1.25rem;
-        margin-bottom: 0.50rem;
-      }
-      .des{
-        font-size:0.70rem;
-        font-weight:400;
-        color:rgba(159,159,159,1);
-        line-height:1.00rem;
-        margin-bottom: 0.75rem;
-      }
-      .count{
-      font-size: 0.90rem;
-      color:#BFBFBF;
-      img{
-        width: 18px;
-        margin-right:0.50rem ;
-      }
-        >div{
-          width: 50%;
-          margin-left: 1rem;
-        }
-        >div:first-child{
-          color:#CFA972;
-        }
-      }
-      
-    }
-   }
-   .tabBar{
-    z-index: 10;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2.90rem;
-    background:rgba(255,255,255,1);
-    padding: 0 2.40rem;
-    font-weight:600;
    }
    
   `;

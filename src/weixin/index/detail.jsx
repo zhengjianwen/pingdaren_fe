@@ -97,12 +97,22 @@ class Detail extends React.Component {
                 </div>
                 <div className='detail-space'></div>
                 <div className='comment'>
-                    <div>评论</div>
+                    <div className='comment-title'>评论</div>
                     {this.state.data.comment.map((item,index)=>{
-                        return(<div className='comment-item' key={index}>123</div>)
+                        return(<div className='comment-item' key={index}>
+                            <div className='flex flex_justify_content margin-b-10'>
+                                <div>匿名用户1</div>
+                                <div className='flex flex_align_items_center comment-favour'><img src={require('./img/favour.png')}/>2341</div>
+                            </div>
+                            <div className='comment-des'>苹果手机系统（iOS）是目前行业内公认最优秀的系统，他的象说真的光看外观看起来还真是一个天上一个地下。</div>
+
+                        </div>)
                     })}
                 </div>
-                <input className='comment-input' placeholder='善意的发言会带来善意的回应'/>
+                <div className='comment-fix'>
+                    <input className='comment-input' placeholder='善意的发言会带来善意的回应'/>
+                </div>
+
             </div>
 
         </Style>)
@@ -172,15 +182,39 @@ const Style = styled.div`
     background:#F1F0F7;
    }
    .comment{
+    color:#333333;
     padding-left: 0.40rem;
     .comment-item{
-      border:0.5px solid rgba(244,245,249,1)
+      border-bottom:0.5px solid rgba(244,245,249,1);
+      padding: 0.60rem 1.00rem 0.90rem 0.60rem;
+      .comment-favour{
+        color:#CFA972;
+        img{
+          width:0.70rem;
+          margin-right: 0.20rem;
+        }
+      }
+      .comment-des{
+        font-size:0.60rem;
+        color:rgba(121,119,119,1);
+        line-height:0.85rem;
+      }
     }
     .comment-title{
       font-size:0.80rem;
       height: 2.20rem;
       line-height: 2.20rem;
+      border-bottom:0.5px solid rgba(244,245,249,1);
+      padding-left: 0.60rem;
     }
+   }
+   .comment-fix{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2.50rem;
+      background: white;
    }
    .comment-input{
     padding-left: 1rem;
@@ -188,7 +222,7 @@ const Style = styled.div`
     height: 1.90rem;
     background:rgba(241,240,247,1);
     border-radius:19px;
-    margin: 0.50rem auto 0;
+    margin: 0.20rem auto 0.3rem;
     display: block;
    }
   `;
