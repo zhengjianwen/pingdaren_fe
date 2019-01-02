@@ -1,13 +1,9 @@
 import * as common from "./request/common.js";
-import * as wxlogin from "./request/wxlogin.js";
-import * as withdrawCash from "./request/withdraw-cash.js";
-import * as award from "./request/award.js"
-import * as credit from "./request/credit.js"
+import * as article from "./request/article.js";
+import * as user from "./request/user.js";
 
 export default {
     common,
-    wxlogin,
-    withdrawCash,
-    award,
-    credit
+    article,
+    user
 }

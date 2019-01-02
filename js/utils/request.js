@@ -52,6 +52,11 @@ const Request = (opts = {}) => {
         config.data = opts.data
     }
 
+    if (process.env.NODE_ENV !== "production") {
+        //支持跨域获取cookie
+        Axios.defaults.withCredentials=true;
+    }
+
     return Axios(config);
 
 }

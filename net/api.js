@@ -1,35 +1,28 @@
 let isProduction = process.env.NODE_ENV == "production";
 
-let host = "";
-
+//let host = "";
+export let host = "http://m.pingdaren.cn";
 if (isProduction == false) {
-    host = "/api";
+    host = "/webpack";
 }
 
 const API = {
     host: host,
     uploadHost: "https://img.dianzhangzhipin.com",
-    common: {
-        auth: `${host}/fontpage/login/auth`,                        //校验登录信息
+    common:{
+        token:`${host}/api/token`,                              //获取token
+        classify:`${host}/api/classify`,                        //评价列表接口
+        user:`${host}/api/login/user`,                          //用户登录注册
+        vc:`${host}/api/login/vc`,                              //登录短信发送
     },
-    wxlogin:{
-        getCode: `${host}/smsActiveCode/sendCode.json`,//校验登录信息
-        bindWx : `${host}/wxact/bind/validate`,                      
+    article: {
+        list: `${host}/api/article/list`,                        //评价列表接口
+        search: `${host}/api/article/seach`,                        //查询接口
     },
-    withdrawCash: {
-        index: `${host}/cash/index.json`,//提现首页
-        isBindwx: `${host}/cash/checkBindWeixin.json`,//检查是否绑定微信
-        detail: `${host}/cash/withdrawDetail.json`,//提现详情
-        recordList: `${host}/cash/withdrawRecord.json`,//提现记录
-        withdraw: `${host}/cash/withdraw.json`,//提现
-    },
-    award:{
-        allReceive:`${host}/coupon/allreceive`,//新老用户领取优惠券接口
-        newReceive:`${host}/coupon/newreceive`,//新用户领取优惠券
-        validate:`${host}/smsActiveCode/validate.json`,//新用户领取优惠券
-    },
-    credit:{
-        info:`${host}/credit/score/info`,//店长信用分雷达图
+    user:{
+        info: `${host}/api/user/info`,                        //用户详情
+        photo: `${host}/api/user/photo`,                      //用户头像修改
+        update: `${host}/api/user/update`,                    //用户个人信息修改
     }
     
 };

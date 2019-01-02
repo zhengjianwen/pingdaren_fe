@@ -4,7 +4,7 @@
  * create date 2018/11/28 14:25:48
  * @desc [新老用户注册]
  */
-import {Tabs,Badge} from 'antd-mobile';
+import {Tabs, Badge} from 'antd-mobile';
 import Invoke from "@/net/invoke.js"
 import {baseInit} from '_common/decorators/baseinit'
 import {Page} from './components/page/index'
@@ -16,11 +16,11 @@ class User extends React.Component {
 
     state = {
         data: {
-            user:{
-                name:'我是大美女',
-                img:'',
-                id:93746294,
-                sign:'个签个签个签个签个签个签个签'
+            user: {
+                name: '我是大美女',
+                img: '',
+                id: 93746294,
+                sign: '个签个签个签个签个签个签个签'
             },
             invitation: [{
                 type: 0,
@@ -74,9 +74,9 @@ class User extends React.Component {
 
     render() {
         const tabs = [
-            { title: <Badge text={'3'}>First Tab</Badge> },
-            { title: <Badge text={'今日(20)'}>Second Tab</Badge> }
-            ];
+            {title: <Badge>我的</Badge>},
+            {title: <Badge>收藏</Badge>}
+        ];
         return (<Style>
             <div>
                 <div className='user-top'>
@@ -90,27 +90,27 @@ class User extends React.Component {
                 <div>
                     <Tabs tabs={tabs}
                           initialPage={1}
-                          onChange={(tab, index) => { console.log('onChange', index, tab); }}
-                          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+                          onChange={(tab, index) => {
+                              console.log('onChange', index, tab);
+                          }}
+                          onTabClick={(tab, index) => {
+                              console.log('onTabClick', index, tab);
+                          }}
                     >
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-                            {
-                                this.state.data.invitation.map((item,index)=>{
-                                    return(<div key={index}>
-                                        <Page data={item}/>
-                                    </div>)
-                                })
-                            }
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-                            {
-                                this.state.data.invitation.map((item,index)=>{
-                                    return(<div key={index}>
-                                        <Page data={item}/>
-                                    </div>)
-                                })
-                            }
-                        </div>
+                        {
+                            this.state.data.invitation.map((item, index) => {
+                                return (<div key={index}>
+                                    <Page data={item}/>
+                                </div>)
+                            })
+                        }
+                        {
+                            this.state.data.invitation.map((item, index) => {
+                                return (<div key={index}>
+                                    <Page data={item}/>
+                                </div>)
+                            })
+                        }
                     </Tabs>
 
                 </div>
@@ -135,6 +135,7 @@ const Style = styled.div`
    text-align: center;
     padding-top:1.30rem ;
     background: white;
+    border-bottom: 0.5px solid rgba(241,240,247,1);
     img{
         display: block;
         margin: 0 auto .5rem;

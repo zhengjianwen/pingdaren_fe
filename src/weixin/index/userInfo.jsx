@@ -4,7 +4,7 @@
  * create date 2018/11/28 14:25:48
  * @desc [新老用户注册]
  */
-import {Toast,List,Button,WingBlank,DatePicker} from 'antd-mobile';
+import {Toast, List, Button, WingBlank, DatePicker} from 'antd-mobile';
 import Invoke from "@/net/invoke.js"
 import {baseInit} from '_common/decorators/baseinit'
 
@@ -14,22 +14,24 @@ class User extends React.Component {
 
     state = {
         data: {
-            user:'张鑫'
+            user: '张鑫'
         }
     };
-    onChange(e){
-        console.log(e.target.name+'-----'+e.target.value)
+
+    onChange(e) {
+        console.log(e.target.name + '-----' + e.target.value)
         this.setState({
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
+
     render() {
         return (<Style>
             <div>
                 <div className='head'>
                     <img src={require('./img/demo.jpg')}/>
                 </div>
-                <List className="date-picker-list" style={{ backgroundColor: 'white' }}>
+                <List className="date-picker-list" style={{backgroundColor: 'white'}}>
                     <List.Item arrow="empty" extra={
                         <input className='name' placeholder='请填写'/>
                     }>昵称</List.Item>
@@ -38,13 +40,15 @@ class User extends React.Component {
                         mode="date"
                         extra="请选择"
                         value={this.state.date}
-                        onChange={date => this.setState({ date })}
+                        onChange={date => this.setState({date})}
                     >
                         <List.Item arrow="horizontal">生日</List.Item>
                     </DatePicker>
                     <List.Item arrow="horizontal" extra={
                         <select dir="rtl" onBlur={this.onChange.bind(this)} name="degree"
-                                ref={(inputDate) => { this.degreeConfig = inputDate; }}>
+                                ref={(inputDate) => {
+                                    this.degreeConfig = inputDate;
+                                }}>
                             <option value=''>请选择</option>
                             <option value="0">男</option>
                             <option value='1'>女</option>

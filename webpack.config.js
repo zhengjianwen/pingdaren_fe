@@ -162,17 +162,15 @@ module.exports = {
         },
 
         proxy: {
-            "/api": {
-                 target:"https://blue-m.weizhipin.com/", //qa
+            "/webpack": {
+                 target:"http://m.pingdaren.cn/", //qa
                 //target: "http://api.kanzhun-inc.com/mock/66/",
-                // target: "http://172.16.26.82:8680/",                 
+                // target: "http://172.16.26.82:8680/",
                 //target: "http://172.16.26.9:8480/",                   //赵杰
-                pathRewrite: { "^/api": "" },
+                pathRewrite: { "^/webpack": "" },
                 secure: false,
                 changeOrigin: true,
-                //cookieDomainRewrite: {
-                //    "dev.weizhipin.com": "blue-boss.weizhipin.com"
-                //}
+                cookieDomainRewrite: "localhost:8085"
             }
         }
     },

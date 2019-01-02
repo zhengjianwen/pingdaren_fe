@@ -1,28 +1,37 @@
-export const Page = (props) =>{
-    return(
+import {host} from '@/net/api'
+export const Page = (props) => {
+    return (
         <Style>
             <div>
                 <div className='content-list'>
                     <div className='content-list-type'>
-                        攻略
+                        {
+                            props.classify.map((item,index)=>{
+                                if(item.id===props.data.classify_id){
+                                    return item.name
+                                }
+                            })
+                        }
                     </div>
-                    <div className={ClassNames(['banner-img__wrapper'], {hide: !props.data.img})}>
-                        <img src={require('../../img/demo.jpg')}/>
+                    <div className={ClassNames(['banner-img__wrapper'], {hide: !props.data.images_info[0]})}>
+                        {props.data.images_info[0]?<img src={`${host}${props.data.images_info[0].path}`}/>:''}
+                        {/*<img src={props.data.images_info[0].path}/>*/}
                     </div>
                     <div className='title'>{props.data.title}</div>
-                    <div className='des'>{props.data.des}</div>
+                    <div className='des'>{props.data.content}</div>
                     <div className='flex flex_align_items_center count'>
                         <div className='flex flex_align_items_center'>
-                            <img src={require('../../img/heart.png')}/> {props.data.love}</div>
+                            <img src={require('../../img/heart.png')}/>0</div>
                         <div className='flex flex_align_items_center'>
                             <img src={require('../../img/pinglun-2.png')}/>
-                            {props.data.talk}
+                            {props.data.read_count}
                         </div>
                     </div>
                 </div>
             </div>
         </Style>
-    )}
+    )
+}
 const Style = styled.div`
    .content-list{
       background:rgba(255,255,255,1);
@@ -67,6 +76,11 @@ const Style = styled.div`
         color:rgba(159,159,159,1);
         line-height:1.00rem;
         margin-bottom: 0.75rem;
+        word-break:break-all;
+        display:-webkit-box;
+        -webkit-line-clamp:3;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
       }
       .count{
       font-size: 0.90rem;

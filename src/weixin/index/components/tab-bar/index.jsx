@@ -1,14 +1,16 @@
 import {Icon} from 'antd-mobile';
-export const TabBar = (props) =>{
-    return(
+
+export const TabBar = (props) => {
+    return (
         <Style>
             <div className='flex flex_align_items_center flex_justify_content color-333333 tabBar'>
-                <div>HOME</div>
-                <Icon type="plus" color='#CFA972' size='md'/>
-                <div>ME</div>
+                <div onClick={()=>{window.location.href=`/html/hybrid/index`}}>HOME</div>
+                <Icon type="plus" color='#CFA972' size='md' onClick={()=>{window.location.href=`/html/hybrid/edit`}}/>
+                <div onClick={()=>{window.location.href=`/html/hybrid/user`}}>ME</div>
             </div>
         </Style>
-    )}
+    )
+}
 const Style = styled.div`
      .tabBar{
     z-index: 10;
