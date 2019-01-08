@@ -244,18 +244,6 @@ class Login extends React.Component {
                         csessionId:"",
                         liked: true ,
                         count: 60
-                    },function(){
-                        codeReset({
-                            id:"#getCode",
-                            width:"100%",
-                            callback:function(data){
-                                _this.setState({
-                                    csig:data.sig,
-                                    ctoken:data.nc_token,
-                                    csessionId:data.csessionid
-                                })
-                            }
-                        })
                     })
                     
                 }

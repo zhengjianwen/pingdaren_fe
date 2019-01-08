@@ -17,13 +17,9 @@ class Main extends React.Component {
     }
 
     state = {
-        data:[{
-            url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-            id: '2121',
-        }, {
-            url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-            id: '2122',
-        }],
+        title:'',
+        content:'',
+        data:[],
         multiple: false,
         classify:[],
         classifyIndex:1
@@ -46,13 +42,49 @@ class Main extends React.Component {
                 Toast.fail(error);
             })
     }
+    setImg(files){
+        Invoke.article.img({uploadfile:files})
+            .then((res) => {
+                console.log(res);
+
+            })
+            .catch(function (error) {
+                Toast.fail(error);
+            })
+    }
+    submit=()=>{
+        Invoke.article.create({classify_id:this.state.classifyIndex,title:this.state.title,content:this.state.content,images:this.state.data})
+            .then((res) => {
+                if(res.code===200){
+                    Toast.info('发布成功')
+                    window.location.href='/html/hybrid/index'
+                }else {
+                    Toast.fail(res.msg);
+                }
+            })
+            .catch(function (error) {
+                Toast.fail(error);
+            })
+    }
     onChange = (files, type, index) => {
         console.log(files, type, index);
-        this.setState({
+        if(type==='remove'){
+            let arr=this.state.data.concat()
+            arr.splice(index,1)
+            this.setState({
+                data:arr
+            })
+        }else if(type==='add'){
+            this.setImg(files[files.length-1].url)
+        }
+        /*this.setState({
             files,
-        });
+        });*/
     }
-    onEdit=()=>{
+    onEdit=(e)=>{
+        this.setState({
+            content:e.target.value
+        })
         //关键是先设置为auto，目的为了重设高度（如果字数减少）
         this.refs.myTA.style.height = 'auto';
 
@@ -60,6 +92,11 @@ class Main extends React.Component {
         if(this.refs.myTA.scrollHeight >= this.refs.myTA.offsetHeight){
             this.refs.myTA.style.height = this.refs.myTA.scrollHeight + 'px'
         }
+    }
+    inputChange=(e)=>{
+        this.setState({
+            title:e.target.value
+        })
     }
 
     render() {
@@ -77,8 +114,8 @@ class Main extends React.Component {
                                 })
                             }
                         </div>
-                        <input className='inputPla editInput' placeholder='请输入标题内容'/>
-                        <textarea className='inputPla editTextarea' onChange={this.onEdit} ref="myTA" placeholder='请输入您要发布的内容'/>
+                        <input className='inputPla editInput' placeholder='请输入标题内容' value={this.state.title} onChange={this.inputChange}/>
+                        <textarea className='inputPla editTextarea' value={this.state.content} onChange={this.onEdit} ref="myTA" placeholder='请输入您要发布的内容'/>
                         <ImagePicker
                             files={this.state.data}
                             onChange={this.onChange}
@@ -86,7 +123,7 @@ class Main extends React.Component {
                             selectable={this.state.data.length < 7}
                             multiple={this.state.multiple}
                         />
-                        <div className='submitBtn'>确定发布</div>
+                        <div className='submitBtn' onClick={this.submit}>确定发布</div>
                     </div>
                 </Style>
 )

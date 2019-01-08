@@ -21,7 +21,8 @@ class Detail extends React.Component {
         classify:[],
         urls:[],
         comment:'',
-        user:{}
+        user:{},
+        text:''
     };
 
     componentWillMount() {
@@ -30,7 +31,7 @@ class Detail extends React.Component {
         this.getInfo()
         document.onkeydown = (e) => {
             if (e.keyCode === 13) {
-
+                this.createComment()
             }
         }
     }
@@ -78,12 +79,27 @@ class Detail extends React.Component {
         if (iEnd == -1) return query.substring(iStart);
         return query.substring(iStart, iEnd);
     }
+    createComment=()=>{
+        if(this.state.text===''){
+            Toast.fail('评论不能为空');
+            return
+        }
+        Invoke.comment.createComment({aid:parseInt(this.getParameter('aid')),uid:this.state.user.id,Content:this.state.text})
+            .then((res) => {
 
-    bindSubmit(){
-        $('form').on('submit', function(e){
-            // 不提交
-            return false;
-        });
+                if(res.code===200){
+                    this.getList()
+                    Toast.info(res.msg)
+                    this.setState({
+                        text:''
+                    })
+                }else {
+                    Toast.fail(res.msg);
+                }
+            })
+            .catch(function (error) {
+                Toast.fail(error);
+            })
     }
     getList() {
         Invoke.article.info({},this.getParameter('aid'))
@@ -109,7 +125,11 @@ class Detail extends React.Component {
             })
 
     };
-
+    inputOnchange=(e)=>{
+        this.setState({
+            text:e.target.value
+        })
+    }
     onClose = () => {
         this.setState({
             isOpen: false
@@ -143,9 +163,10 @@ class Detail extends React.Component {
                         {
                             this.state.data.images_info?this.state.data.images_info.map((item, index) => {
                                 return <div key={index} className='margin-b-12 imgItem'>
-                                    <img src={`${host}${item.path}`} alt="" onClick={() => {
+                                    {/*<img src={`${host}${item.path}`} alt="" onClick={() => {
                                         this.openViewer(index)
-                                    }}/>
+                                    }}/>*/}
+                                    <img src={`${host}${item.path}`}/>
                                 </div>
                             }):''
                         }
@@ -168,21 +189,21 @@ class Detail extends React.Component {
                 <div className='comment'>
                     <div className='comment-title'>评论</div>
                     {
-                        this.state.data.comment?this.state.data.comment.map((item, index) => {
+                        this.state.data.comments?this.state.data.comments.map((item, index) => {
                         return (<div className='comment-item' key={index}>
                             <div className='flex flex_justify_content margin-b-10'>
-                                <div>匿名用户1</div>
+                                <div>{item.uid}</div>
                                 <div className='flex flex_align_items_center comment-favour'><img
-                                    src={require('./img/favour.png')}/>2341
+                                    src={item.like?require('./img/favour.png'):require('./img/favour-active.png')}/>{item.like_nub}
                                 </div>
                             </div>
-                            <div className='comment-des'>苹果手机系统（iOS）是目前行业内公认最优秀的系统，他的象说真的光看外观看起来还真是一个天上一个地下。</div>
+                            <div className='comment-des'>{item.content}</div>
 
                         </div>)}):<div className='noComment'>暂无评论,快来抢个沙发吧~</div>
                     }
                 </div>
                 <div className='comment-fix'>
-                    <input className='comment-input' placeholder='善意的发言会带来善意的回应'/>
+                    <input className='comment-input' value={this.state.text} placeholder='善意的发言会带来善意的回应' onChange={this.inputOnchange}/>
                 </div>
 
             </div>

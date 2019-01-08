@@ -3,8 +3,6 @@ import './index.scss'
 class ReactIscroll extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-        }
     }
 
     componentDidMount() {
@@ -23,8 +21,6 @@ class ReactIscroll extends React.Component {
             this.props.onScrollEnd()
         }
     }
-    refresh=()=>{
-    }
     render() {
 
         return (<div>
@@ -34,7 +30,6 @@ class ReactIscroll extends React.Component {
 }
 
 ReactIscroll.defaultProps = {
-    type: 1,
     hide: false
 }
 

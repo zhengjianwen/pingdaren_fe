@@ -9,69 +9,114 @@ import Invoke from "@/net/invoke.js"
 import {baseInit} from '_common/decorators/baseinit'
 import {Page} from './components/page/index'
 import {TabBar} from './components/tab-bar/index'
+import {Toast} from "antd-mobile/lib/index";
+import {host} from "@/net/api";
+import ReactIscroll from '_common/react-iScroll/react-iScroll'
 
 
 @baseInit({title: '个人中心'})
 class User extends React.Component {
 
     state = {
-        data: {
-            user: {
-                name: '我是大美女',
-                img: '',
-                id: 93746294,
-                sign: '个签个签个签个签个签个签个签'
-            },
-            invitation: [{
-                type: 0,
-                img: './img/demo.jpg',
-                title: '办公与游戏兼得电脑，强烈推荐给你门门门赶快去买！！',
-                des: '办公与游戏兼得电脑，强烈推荐给你门men e门……',
-                love: 23412311,
-                talk: 23412311
+        classify:[],
+        user: {
+            name: '---',
+            img: '',
+            id: 0,
+            classify:[],
+            sign: '请求失败'
+        },
 
-            },
-                {
-                    type: 1,
-                    img: './img/demo.jpg',
-                    title: '办公与游戏兼得电脑，强烈推荐给你门门门赶快去买！！',
-                    des: '办公与游戏兼得电脑，强烈推荐给你门men e门……',
-                    love: 23412311,
-                    talk: 23412311
-
-                },
-                {
-                    type: 1,
-                    img: null,
-                    title: '办公与游戏兼得电脑，强烈推荐给你门门门赶快去买！！',
-                    des: '办公与游戏兼得电脑，强烈推荐给你门men e门游戏兼得电脑，强烈推游戏兼得电脑，强烈推游戏兼得电脑，强烈推游戏兼得电脑，强烈推……',
-                    love: 23412311,
-                    talk: 23412311
-
-                },
-                {
-                    type: 0,
-                    img: './img/demo.jpg',
-                    title: '办公与游戏兼得电脑，强烈推荐给你门门门赶快去买！！',
-                    des: '办公与游戏兼得电脑，强烈推荐给你门men e门……',
-                    love: 23412311,
-                    talk: 23412311
-
-                },
-                {
-                    type: 0,
-                    img: null,
-                    title: '办公与游戏兼得电脑，强烈推荐给你门门门赶快去买！！',
-                    des: '办公与游戏兼得电脑，强烈推荐给你门men e门游戏兼得电脑，强烈推游戏兼得电脑，强烈推游戏兼得电脑，强烈推游戏兼得电脑，强烈推……',
-                    love: 23412311,
-                    talk: 23412311
-
-                }]
-
-
-        }
+        myList:[],
+        myListPage:0,
+        myListHasMore:true,
+        loveList:{},
+        loveListPage:1,
     };
 
+    componentWillMount() {
+        this.getInfo()
+        this.getClassify()
+        this.getList()
+    }
+    /*
+    *   查看自己的帖子
+    *
+    * */
+    getList(){
+        Invoke.article.list({p:this.state.myListPage,self:true})
+            .then((res) => {
+                console.log(res);
+                if (res.status === true) {
+                    if(res.data.length===0){
+                        this.setState({
+                            myListHasMore:false
+                        })
+                    }else {
+                        this.setState({
+                            myList:this.state.myList.concat(res.data)
+                        })
+                    }
+                }
+                else {
+                    Toast.fail(res.msg, 1);
+                }
+            })
+            .catch(function (error) {
+                Toast.fail(error);
+            })
+
+    };
+
+    getClassify(){
+        Invoke.common.classify()
+            .then((res) => {
+                console.log(res);
+                if (res.status === true) {
+                    this.setState({
+                        classify:res.data
+                    })
+                }
+                else {
+                    Toast.fail(res.msg, 1);
+                }
+            })
+            .catch(function (error) {
+                Toast.fail(error);
+            })
+    }
+
+    getInfo(){
+        Invoke.user.info()
+            .then((res) => {
+                if (res.code === 200) {
+                    this.setState({
+                        user:res.data
+                    })
+                }
+                else {
+                    Toast.fail(res.msg, 1);
+                }
+            })
+            .catch(function (error) {
+                Toast.fail(error);
+            })
+    }
+    onScrollEnd=()=> {
+        console.log('加载更多')
+        /*if(this.state.hasMore){
+            this.setState({
+                page:this.state.page+1
+            },()=>{
+                this.getList(this.state.page)
+            });
+
+        }*/
+
+    };
+    toUserInfo=()=>{
+        window.location.href=`/html/hybrid/userInfo`
+    };
     render() {
         const tabs = [
             {title: <Badge>我的</Badge>},
@@ -81,37 +126,41 @@ class User extends React.Component {
             <div>
                 <div className='user-top'>
                     <div className='user-message'>关注</div>
-                    <img src={require('./img/demo.jpg')}/>
-                    <div className='name'>我是大美女</div>
-                    <div className='user-id'>ID：93746294</div>
-                    <div className='sign'>个签个签个签个签个签个签个签</div>
+                    {console.log(this.state.user.photo)}
+                    <img onClick={this.toUserInfo} src={this.state.user.photo?`${host}${this.state.user.photo}`:require('./img/default.jpg')}/>
+                    <div className='name'>{this.state.user.nickname}</div>
+                    <div className='user-id'>ID：{this.state.user.id}</div>
+                    <div className='sign'>{this.state.user.autograph}</div>
                 </div>
 
                 <div>
-                    <Tabs tabs={tabs}
-                          initialPage={1}
-                          onChange={(tab, index) => {
-                              console.log('onChange', index, tab);
-                          }}
-                          onTabClick={(tab, index) => {
-                              console.log('onTabClick', index, tab);
-                          }}
-                    >
-                        {
-                            this.state.data.invitation.map((item, index) => {
-                                return (<div key={index}>
-                                    <Page data={item}/>
-                                </div>)
-                            })
-                        }
-                        {
-                            this.state.data.invitation.map((item, index) => {
-                                return (<div key={index}>
-                                    <Page data={item}/>
-                                </div>)
-                            })
-                        }
-                    </Tabs>
+                    <ReactIscroll onScrollEnd={this.onScrollEnd}>
+                        <Tabs tabs={tabs}
+                              initialPage={0}
+                              onChange={(tab, index) => {
+                                  console.log('onChange', index, tab);
+                              }}
+                              onTabClick={(tab, index) => {
+                                  console.log('onTabClick', index, tab);
+                              }}
+                        >
+                            {
+                                this.state.myList.length!==0?this.state.myList.map((item, index) => {
+                                    return (<div key={index} onClick={()=>{this.toDetail(item)}}>
+                                        <Page data={item} classify={this.state.classify}/>
+                                    </div>)
+                                }):<div className='noData'>暂无内容</div>
+                            }
+                            {
+                                this.state.myList.length!==0?this.state.myList.map((item, index) => {
+                                    return (<div key={index} onClick={()=>{this.toDetail(item)}}>
+                                        <Page data={item} classify={this.state.classify}/>
+                                    </div>)
+                                }):<div className='noData'>暂无内容</div>
+                            }
+                        </Tabs>
+                    </ReactIscroll>
+
 
                 </div>
                 <TabBar/>
@@ -126,6 +175,12 @@ export default User;
 const Style = styled.div`
    background: #F1F0F7;
    position: relative;
+  .noData{
+      height: 60vh;
+      line-height: 100vh;
+      text-align: center;
+      font-size: 0.80rem;
+   }
    .user-message{
     position: absolute;
     top:5px;

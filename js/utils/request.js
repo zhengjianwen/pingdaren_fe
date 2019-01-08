@@ -2,6 +2,7 @@ import Qs from "qs";
 import Axios from "axios";
 
 // 添加一个请求拦截器
+
 Axios.interceptors.request.use(function (config) {
     //console.log("request", config)
 
@@ -11,7 +12,7 @@ Axios.interceptors.request.use(function (config) {
             config.data = {};
         }
 
-        config.data = Qs.stringify(config.data);
+        //config.data = Qs.stringify(config.data);
     }
 
     return config;
@@ -49,6 +50,9 @@ const Request = (opts = {}) => {
     if (opts.method.toLowerCase() == "get") {
         config.params = opts.data
     } else {
+        Axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
+        console.log(opts.data)
+
         config.data = opts.data
     }
 
@@ -56,7 +60,7 @@ const Request = (opts = {}) => {
         //支持跨域获取cookie
         Axios.defaults.withCredentials=true;
     }
-
+    console.log(config)
     return Axios(config);
 
 }

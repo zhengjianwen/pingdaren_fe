@@ -13,3 +13,11 @@ export const search = (data) => {
 export const info = (data,aid) => {
     return Request({ data, url:`${host}/api/article/${aid}/info` , method: "get" })
 };
+//上传图片
+export const img = (data) => {
+    return Request({ data, url:API.article.img , method: "POST" })
+};
+//上传图片
+export const create = (data) => {
+    return Request({ data, url:API.article.create , method: "POST" })
+};
