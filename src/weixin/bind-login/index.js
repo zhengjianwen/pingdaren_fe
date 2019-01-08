@@ -111,6 +111,7 @@ class Login extends React.Component {
             const data = Object.assign(formData, parsed);
             Invoke.common.user(data)
                 .then((res) => {
+                    console.log(res)
                     if (res.code ==200) {
                         _this.setState({
                             phone: "",

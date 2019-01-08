@@ -8,7 +8,6 @@ if (isProduction == false) {
 
 const API = {
     host: host,
-    uploadHost: "https://img.dianzhangzhipin.com",
     common:{
         token:`${host}/api/token`,                              //获取token
         classify:`${host}/api/classify`,                        //评价列表接口

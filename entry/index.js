@@ -8,16 +8,18 @@ import store from "@/redux/store.js";
 import {Toast} from "antd-mobile/lib/index";
 
 document.title = "评大人";
-Invoke.common.getToken({
-    key:'13968114520'
-})
-    .then((res) => {
-        console.log(res);
-        window.sessionStorage["token"] = res;
+if (!window.sessionStorage["token"]) {
+    Invoke.common.getToken({
+        key:'15646509036‬'
     })
-    .catch(function (error) {
-        Toast.fail(error);
-    })
+        .then((res) => {
+            console.log(res);
+            window.sessionStorage["token"] = res;
+        })
+        .catch(function (error) {
+            Toast.fail(error);
+        })
+}
 
 if (module.hot) {
     module.hot.accept()
