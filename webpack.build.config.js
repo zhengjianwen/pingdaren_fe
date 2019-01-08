@@ -16,17 +16,6 @@ var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
 //用户在本地测试打包项目
 var Build_Path = path.resolve(Root_Path, './build');
 
-if ("test" == process.env.PACKAGE_ENV) {
-    Build_Path = path.resolve(Root_Path, '../../../dz-hybrid-test/hybrid');
-}
-
-if ("pre" == process.env.PACKAGE_ENV) {
-    Build_Path = path.resolve(Root_Path, '../../../dz-hybrid-pre/hybrid');
-}
-
-if ("production" == process.env.PACKAGE_ENV) {
-    Build_Path = path.resolve(Root_Path, '../../../dz-hybrid-pro/hybrid');
-}
 
 var plugins = [
 
@@ -184,7 +173,7 @@ module.exports = {
         filename: 'js/[name]-[chunkhash:6].js',
         chunkFilename: 'js/[name]-[chunkhash:6].js',
         path: Build_Path,
-        publicPath: "/html/hybrid/"
+        publicPath: "./"
     },
 
     resolve: {
