@@ -4,9 +4,9 @@ export const TabBar = (props) => {
     return (
         <Style>
             <div className='flex flex_align_items_center flex_justify_content color-333333 tabBar'>
-                <div onClick={()=>{window.location.href=`/html/hybrid/index`}}>HOME</div>
-                <Icon type="plus" color='#CFA972' size='md' onClick={()=>{window.location.href=`/html/hybrid/edit`}}/>
-                <div onClick={()=>{window.location.href=`/html/hybrid/user`}}>ME</div>
+                <div onClick={()=>{window.location.href=`/index`}}>HOME</div>
+                <Icon type="plus" color='#CFA972' size='md' onClick={()=>{window.location.href=`/edit`}}/>
+                <div onClick={()=>{window.location.href=`/user`}}>ME</div>
             </div>
         </Style>
     )

@@ -117,6 +117,7 @@ class Login extends React.Component {
                             code: ""
                         })
                         Toast.success('登录成功', 1);
+                        window.location.href='/index'
                     }
                     else {
                         Toast.success(res.msg, 1);

@@ -97,7 +97,7 @@ class Main extends React.Component {
     };
     toDetail=(item)=>{
         console.log(item)
-        window.location.href=`/html/hybrid/detail?aid=${item.id}`
+        window.location.href=`/detail?aid=${item.id}`
     };
     bindChange=debounce((e)=>{
         this.setState({

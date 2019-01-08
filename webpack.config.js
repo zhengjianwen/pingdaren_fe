@@ -57,7 +57,7 @@ var plugins = [
         hash: true,
     }),
 
-    //new OpenBrowserPlugin({ url: 'http://fe.weizhipin.com:8081/html/hybrid/index' }),
+    //new OpenBrowserPlugin({ url: 'http://fe.weizhipin.com:8081/index' }),
 
 ]
 
@@ -141,11 +141,11 @@ module.exports = {
         filename: '[name].js',
         chunkFilename: '[name].js',
         path: Build_Path,
-        publicPath: "/html/hybrid/"
+        publicPath: "/"
     },
 
     devServer: {
-        publicPath: '/html/hybrid/',
+        publicPath: '/',
         compress: false,
         hot: true,
         inline: true,
@@ -156,7 +156,7 @@ module.exports = {
         //historyApiFallback: true,
         historyApiFallback: {
             rewrites: [
-                { from: "/html/hybrid", to: '/html/hybrid/index.html' }
+                { from: "/", to: '/index.html' }
             ]
             // index: '/html/index.html'
         },

@@ -57,7 +57,7 @@ class Main extends React.Component {
             .then((res) => {
                 if(res.code===200){
                     Toast.info('发布成功')
-                    window.location.href='/html/hybrid/index'
+                    window.location.href='/index'
                 }else {
                     Toast.fail(res.msg);
                 }

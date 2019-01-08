@@ -16,6 +16,9 @@ var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
 //用户在本地测试打包项目
 var Build_Path = path.resolve(Root_Path, './build');
 
+if ("test" == process.env.PACKAGE_ENV) {
+    Build_Path = path.resolve(Root_Path, '../ping-test/hybrid');
+}
 
 var plugins = [
 

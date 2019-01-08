@@ -115,7 +115,7 @@ class User extends React.Component {
 
     };
     toUserInfo=()=>{
-        window.location.href=`/html/hybrid/userInfo`
+        window.location.href=`/userInfo`
     };
     render() {
         const tabs = [

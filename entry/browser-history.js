@@ -1,7 +1,7 @@
 import createHistory from 'history/createBrowserHistory';
 
 export default createHistory({
-    basename: "/html/hybrid",
+    basename: "/",
     // forceRefresh: false, // Set true to force full page refreshes
     // keyLength: 6, // The length of location.key
     // // A function to use to confirm navigation with the user (see below)
