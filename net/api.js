@@ -1,7 +1,7 @@
 let isProduction = process.env.NODE_ENV == "production";
 
 //let host = "";
-export let host = "http://m.pingdaren.cn";
+export let host = "https://m.pingdaren.cn";
 if (isProduction == false) {
     host = "/webpack";
 }

@@ -54,7 +54,6 @@ class AppRouter extends React.Component {
         return (
             <Switch>
                 {/* <Route exact path={`/`} render={props => AuthComponent(props, Index)} /> */}
-                <Route path={`/index`} render={props => AuthComponent(props, Index)} />
                 <Route path={`/edit`} render={props => AuthComponent(props, Edit)} />
                 <Route path={`/detail`} render={props => AuthComponent(props, Detail)} />
                 <Route path={`/user`} render={props => AuthComponent(props, User)} />
@@ -64,6 +63,8 @@ class AppRouter extends React.Component {
 {/*
                 <Route path={`/login/:id?`} render={props => AuthComponent(props, Login)} />
 */}
+
+                <Route path={`/`} render={props => AuthComponent(props, Index)} />
                 <Redirect to="/404" />
             </Switch>
         )
