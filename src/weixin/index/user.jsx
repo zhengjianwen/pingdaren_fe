@@ -67,7 +67,10 @@ class User extends React.Component {
             })
 
     };
-
+    toDetail=(item)=>{
+        console.log(item)
+        window.location.href=`/detail?aid=${item.id}`
+    };
     getClassify(){
         Invoke.common.classify()
             .then((res) => {
