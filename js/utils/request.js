@@ -12,7 +12,7 @@ Axios.interceptors.request.use(function (config) {
             config.data = {};
         }
 
-        //config.data = Qs.stringify(config.data);
+        config.data = Qs.stringify(config.data);
     }
 
     return config;
@@ -50,7 +50,7 @@ const Request = (opts = {}) => {
     if (opts.method.toLowerCase() == "get") {
         config.params = opts.data
     } else {
-        Axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
+        //Axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
         console.log(opts.data)
 
         config.data = opts.data

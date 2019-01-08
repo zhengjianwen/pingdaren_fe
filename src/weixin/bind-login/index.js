@@ -111,13 +111,13 @@ class Login extends React.Component {
             const data = Object.assign(formData, parsed);
             Invoke.common.user(data)
                 .then((res) => {
-                    if (res.rescode ==200) {
+                    if (res.code ==200) {
                         _this.setState({
                             phone: "",
                             code: ""
                         })
                         Toast.success('登录成功', 1);
-                        window.location.href='/index'
+                        window.location.href='/'
                     }
                     else {
                         Toast.success(res.msg, 1);
@@ -159,7 +159,7 @@ class Login extends React.Component {
         }
         Invoke.common.vc(data)
             .then((res) => {
-                if (res.rescode == 200) {
+                if (res.code === 200) {
                     Toast.info(res.msg, 1);
                 }
             })
@@ -182,18 +182,6 @@ class Login extends React.Component {
                         csessionId: "",
                         liked: true,
                         count: 60
-                    }, function () {
-                        codeReset({
-                            id: "#getCode",
-                            width: "100%",
-                            callback: function (data) {
-                                _this.setState({
-                                    csig: data.sig,
-                                    ctoken: data.nc_token,
-                                    csessionId: data.csessionid
-                                })
-                            }
-                        })
                     })
                 }
             })
